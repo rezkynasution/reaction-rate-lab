@@ -2,13 +2,21 @@
 
 An interactive chemistry laboratory report exploring how concentration, temperature, surface area, and catalysts influence the rate of chemical reactions.
 
+<details>
+<summary>Project Links</summary>
+
+- **Live Website:** https://rate-reaction-lab.netlify.app
+- **Source Code:** Available in this GitHub repository.
+
+</details>
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Website-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://rate-reaction-lab.netlify.app)
+
 This project transforms a conventional high school chemistry experiment into an interactive scientific research poster, combining experimental data, scientific explanations, and a dynamic particle simulator.
 
 ## Overview
 
 The rate of a chemical reaction depends on how frequently particles collide and how many of those collisions are effective. This project investigates four major factors that influence reaction rates through experimental observations and collision theory.
-
-The central scientific principle:
 
 > Reaction rate is governed by the frequency and effectiveness of particle collisions.
 
@@ -55,8 +63,6 @@ reaction-rate-lab/
 ├── index.html
 └── README.md
 ```
-
-The project is designed as a web-based interactive experience.
 
 ## Getting Started
 
