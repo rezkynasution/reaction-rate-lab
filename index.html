@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factors Affecting the Rate of Reaction - Chemistry Laboratory Report</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              900: '#10243A',
+              800: '#193352',
+              700: '#23446B',
+              50: '#F0F4F8',
+            },
+            labblue: {
+              600: '#2563EB',
+              700: '#1D4ED8',
+              50: '#EFF6FF',
+            },
+            cyanacc: {
+              400: '#38BDF8',
+              500: '#0EA5E9',
+              50: '#F0F9FF',
+            },
+            offwhite: '#F7F9FC',
+            softgray: '#E5EAF0',
+            amberacc: {
+              500: '#F59E0B',
+              600: '#D97706',
+              50: '#FFFBEB',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            heading: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0c1827;
+      color: #10243A;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .poster-container {
+        box-shadow: none !important;
+        transform: none !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+      }
+    }
+
+    /* Grid lines aesthetic for Swiss Editorial design */
+    .swiss-grid-pattern {
+      background-image: linear-gradient(to right, rgba(16, 36, 58, 0.04) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(16, 36, 58, 0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #E5EAF0;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #2563EB;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased flex flex-col custom-scrollbar">
+
+  <!-- TOP CONTROL BAR (Navigation & Tools) -->
+  <header class="no-print sticky top-0 z-50 bg-navy-900 border-b border-slate-700 text-white px-4 py-3 flex flex-wrap items-center justify-between shadow-lg">
+    <div class="flex items-center space-x-3">
+      <div class="bg-labblue-600 p-2 rounded-lg font-mono font-bold text-xs tracking-wider">LAB REPORT</div>
+      <div>
+        <h1 class="font-heading font-bold text-base md:text-lg leading-none tracking-tight">FACTORS AFFECTING THE RATE OF REACTION</h1>
+        <p class="text-xs text-cyanacc-400 font-mono mt-0.5">CHEMISTRY I • GROUP: CONCENTRATION I</p>
+      </div>
+    </div>
+
+    <!-- View Modes & Controls -->
+    <div class="flex items-center space-x-2 mt-2 sm:mt-0 flex-wrap gap-y-2">
+      <div class="bg-navy-800 p-1 rounded-lg border border-slate-700 flex text-xs font-medium">
+        <button id="view-poster-btn" onclick="switchView('poster')" class="px-3 py-1.5 rounded-md transition-all bg-labblue-600 text-white font-semibold">
+          Poster Mode
+        </button>
+        <button id="view-sections-btn" onclick="switchView('sections')" class="px-3 py-1.5 rounded-md transition-all text-slate-300 hover:text-white">
+          Section Focus
+        </button>
+        <button id="view-sandbox-btn" onclick="switchView('sandbox')" class="px-3 py-1.5 rounded-md transition-all text-slate-300 hover:text-white flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-cyanacc-400 animate-pulse"></span> Particle Simulator
+        </button>
+      </div>
+
+      <!-- Zoom Controls for Poster -->
+      <div id="zoom-controls" class="flex items-center bg-navy-800 rounded-lg border border-slate-700 px-2 py-1 text-xs">
+        <button onclick="adjustZoom(-0.05)" class="px-2 py-0.5 text-slate-300 hover:text-white font-bold" title="Zoom Out text">-</button>
+        <span id="zoom-text" class="px-2 font-mono text-cyanacc-400 font-semibold">100%</span>
+        <button onclick="adjustZoom(0.05)" class="px-2 py-0.5 text-slate-300 hover:text-white font-bold" title="Zoom In text">+</button>
+        <button onclick="resetZoom()" class="ml-1 px-1.5 py-0.5 text-[10px] bg-slate-700 text-slate-200 rounded hover:bg-slate-600">Reset</button>
+      </div>
+
+      <!-- Print Button -->
+      <button onclick="window.print()" class="bg-amberacc-600 hover:bg-amberacc-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shadow-md transition-all">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+        Print / PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER CONTAINER -->
+  <main class="flex-grow p-2 md:p-6 flex justify-center items-start overflow-auto">
+
+    <!-- POSTER LAYOUT BOARD -->
+    <div id="poster-board" class="poster-container bg-offwhite text-navy-900 rounded-xl shadow-2xl border border-softgray w-full max-w-[1400px] transition-transform duration-200 origin-top swiss-grid-pattern p-4 md:p-8 space-y-8">
+      
+      <!-- HEADER & METADATA SECTION -->
+      <header class="border-b-4 border-navy-900 pb-6">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6">
+          <div class="space-y-2 max-w-4xl">
+            <div class="flex items-center gap-2">
+              <span class="bg-navy-900 text-white font-mono text-xs px-2.5 py-1 font-bold rounded">ACADEMIC RESEARCH POSTER</span>
+              <span class="bg-labblue-600 text-white font-mono text-xs px-2.5 py-1 font-bold rounded">GROUP: CONCENTRATION I</span>
+              <span class="bg-cyanacc-50 text-labblue-700 font-mono text-xs px-2.5 py-1 font-semibold rounded border border-cyanacc-400">HIGH SCHOOL CHEMISTRY</span>
+            </div>
+            <h1 class="font-heading text-3xl md:text-5xl font-extrabold tracking-tight text-navy-900 leading-tight">
+              FACTORS AFFECTING THE RATE OF REACTION
+            </h1>
+            <p class="text-lg md:text-xl font-medium text-labblue-700 tracking-wide font-mono">
+              CHEMISTRY LABORATORY EXPERIMENTAL REPORT
+            </p>
+          </div>
+
+          <!-- Authors / Team Card -->
+          <div class="bg-white p-4 rounded-lg border-2 border-softgray shadow-sm min-w-[300px] w-full lg:w-auto">
+            <div class="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-2 border-b pb-1 flex justify-between">
+              <span>RESEARCH TEAM MEMBERS</span>
+              <span class="text-labblue-600">5 AUTHORS</span>
+            </div>
+            <ul class="text-xs font-semibold space-y-1 text-navy-900">
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-labblue-600"></span> Fathan Maulana Arsandy</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-labblue-600"></span> Ghazi Ashaadan Rangga Bhakti</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-labblue-600"></span> Ibrahim Shamey Maherandra</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-labblue-600"></span> Mikail Yusuf Faidlurrahman</li>
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-labblue-600"></span> Rezky Novriansyah Nasution</li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- SECTION 01 — SCIENTIFIC OVERVIEW -->
+      <section class="bg-white rounded-xl p-6 border border-softgray shadow-sm">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="font-mono text-xs font-bold bg-navy-900 text-cyanacc-400 px-3 py-1 rounded-md">SECTION 01</span>
+          <h2 class="font-heading text-xl font-bold tracking-tight text-navy-900">SCIENTIFIC OVERVIEW & COLLISION THEORY</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <!-- Text Cards -->
+          <div class="lg:col-span-5 space-y-4 flex flex-col justify-between">
+            <div class="bg-navy-50 p-4 rounded-lg border-l-4 border-labblue-600">
+              <h3 class="font-mono text-xs font-bold text-labblue-700 uppercase mb-1">Experimental Purpose</h3>
+              <p class="text-sm text-navy-900 font-medium leading-relaxed">
+                "Determine the influence of Concentration, Temperature, Surface Area, and Catalyst on the Rate of Reaction in a chemical reaction."
+              </p>
+            </div>
+            
+            <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-navy-900">
+              <h3 class="font-mono text-xs font-bold text-navy-900 uppercase mb-1">Theoretical Foundation</h3>
+              <p class="text-sm text-slate-700 leading-relaxed">
+                "The rate of reaction is the change in concentration of reactants or products per unit of time. According to collision theory, chemical reactions occur when reactant particles collide effectively with sufficient energy ($\ge E_a$) and proper spatial orientation."
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+              <div class="bg-cyanacc-50 border border-cyanacc-400 p-2.5 rounded text-navy-900">
+                <span class="font-bold text-labblue-700 block mb-0.5">Rate Equation</span>
+                Rate = -Δ[Reactant]/Δt = +Δ[Product]/Δt
+              </div>
+              <div class="bg-amberacc-50 border border-amberacc-500 p-2.5 rounded text-navy-900">
+                <span class="font-bold text-amberacc-600 block mb-0.5">Activation Energy ($E_a$)</span>
+                Minimum kinetic energy threshold
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Activation Energy Diagram & Particle Micro-Visual -->
+          <div class="lg:col-span-7 bg-navy-900 text-white rounded-xl p-5 border border-slate-700 flex flex-col justify-between relative overflow-hidden">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-mono text-cyanacc-400 uppercase tracking-wider font-semibold">Microscopic Collision & Potential Energy Vector Schematic</span>
+              <span class="text-[10px] font-mono bg-navy-800 border border-slate-600 text-slate-300 px-2 py-0.5 rounded">Interactive Model</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- SVG Energy Profile -->
+              <div class="bg-navy-800 p-3 rounded-lg border border-slate-700 relative">
+                <div class="text-[11px] font-mono text-slate-300 mb-1">Energy Profile Diagram</div>
+                <svg viewBox="0 0 300 170" class="w-full h-auto">
+                  <!-- Axes -->
+                  <line x1="30" y1="140" x2="280" y2="140" stroke="#64748B" stroke-width="2"/>
+                  <line x1="30" y1="140" x2="30" y2="20" stroke="#64748B" stroke-width="2"/>
+                  <text x="280" y="155" fill="#94A3B8" font-size="9" font-family="monospace">Reaction Path</text>
+                  <text x="10" y="20" fill="#94A3B8" font-size="9" font-family="monospace" transform="rotate(-90 20,20)">Energy (E)</text>
+
+                  <!-- Uncatalyzed Curve -->
+                  <path d="M 30,110 C 90,110 110,30 160,30 C 210,30 230,130 280,130" fill="none" stroke="#38BDF8" stroke-width="3"/>
+                  
+                  <!-- Catalyzed Curve -->
+                  <path d="M 30,110 C 90,110 110,75 160,75 C 210,75 230,130 280,130" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-dasharray="4,3"/>
+
+                  <!-- Reactant / Product Labels -->
+                  <text x="35" y="105" fill="#38BDF8" font-size="10" font-weight="bold">Reactants</text>
+                  <text x="235" y="125" fill="#38BDF8" font-size="10" font-weight="bold">Products</text>
+
+                  <!-- Ea lines -->
+                  <line x1="160" y1="30" x2="160" y2="110" stroke="#38BDF8" stroke-dasharray="2,2" stroke-width="1"/>
+                  <text x="165" y="55" fill="#38BDF8" font-size="9" font-mono>Ea (Uncatalyzed)</text>
+
+                  <line x1="160" y1="75" x2="160" y2="110" stroke="#F59E0B" stroke-dasharray="2,2" stroke-width="1"/>
+                  <text x="165" y="85" fill="#F59E0B" font-size="9" font-mono>Ea (Catalyzed)</text>
+                </svg>
+              </div>
+
+              <!-- Particle Collision Schematic -->
+              <div class="bg-navy-800 p-3 rounded-lg border border-slate-700 flex flex-col justify-between">
+                <div>
+                  <div class="text-[11px] font-mono text-slate-300 mb-1">Particle Collision Mechanics</div>
+                  <div class="space-y-2 mt-2">
+                    <div class="bg-navy-900 p-2 rounded border border-slate-700 flex items-center justify-between text-xs">
+                      <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500 inline-block animate-ping"></span>
+                        <span class="text-slate-200">Ineffective Collision</span>
+                      </div>
+                      <span class="font-mono text-[10px] text-slate-400">E &lt; Ea (Rebound)</span>
+                    </div>
+
+                    <div class="bg-navy-900 p-2 rounded border border-cyanacc-500 flex items-center justify-between text-xs">
+                      <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-cyanacc-400 inline-block"></span>
+                        <span class="text-cyanacc-400 font-semibold">Effective Collision</span>
+                      </div>
+                      <span class="font-mono text-[10px] text-cyanacc-400">E ≥ Ea (Reaction)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-3 bg-navy-900/80 p-2 rounded text-[11px] text-slate-300 font-mono">
+                  <span class="text-amberacc-500 font-bold">Key Principle:</span> Only collisions exceeding the Activation Energy ($E_a$) yield chemical transformation.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 02 — EXPERIMENTAL EQUIPMENT & MATERIALS -->
+      <section class="bg-white rounded-xl p-6 border border-softgray shadow-sm">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-xs font-bold bg-navy-900 text-cyanacc-400 px-3 py-1 rounded-md">SECTION 02</span>
+            <h2 class="font-heading text-xl font-bold tracking-tight text-navy-900">EXPERIMENTAL EQUIPMENT & MATERIALS SCHEMATIC</h2>
+          </div>
+          <span class="text-xs font-mono text-slate-500">LABORATORY INVENTORY</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Laboratory Tools -->
+          <div class="bg-offwhite p-4 rounded-xl border border-softgray">
+            <h3 class="font-mono text-xs font-bold text-navy-900 uppercase tracking-wider mb-3 flex items-center gap-2 border-b pb-2">
+              <svg class="w-4 h-4 text-labblue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+              LABORATORY APPARATUS (TOOLS)
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <!-- Tool 1: Beaker -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 text-center hover:border-labblue-600 transition-colors">
+                <svg class="w-10 h-10 mx-auto text-labblue-600 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h12v3l-2 15H8L6 6V3z"/><path d="M6 6h12"/><line x1="8" y1="12" x2="12" y2="12" stroke-dasharray="1 1"/><line x1="8" y1="15" x2="14" y2="15" stroke-dasharray="1 1"/></svg>
+                <div class="font-semibold text-xs text-navy-900">Beaker</div>
+                <div class="text-[10px] text-slate-500 font-mono">100 mL Reaction Vessel</div>
+              </div>
+
+              <!-- Tool 2: Bunsen Burner -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 text-center hover:border-labblue-600 transition-colors">
+                <svg class="w-10 h-10 mx-auto text-amberacc-600 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 14v7M8 21h8M10 14h4l1-5H9l1 5z"/><path d="M12 3c-1.5 2-2 4 0 6 2-2 1.5-4 0-6z" fill="#F59E0B"/></svg>
+                <div class="font-semibold text-xs text-navy-900">Bunsen Burner</div>
+                <div class="text-[10px] text-slate-500 font-mono">Controlled Heat Source</div>
+              </div>
+
+              <!-- Tool 3: Pipette -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 text-center hover:border-labblue-600 transition-colors">
+                <svg class="w-10 h-10 mx-auto text-labblue-600 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 3l3 3-2 2-3-3 2-2zM16 5l-11 11v3h3l11-11-3-3z"/><line x1="5" y1="19" x2="3" y2="21"/></svg>
+                <div class="font-semibold text-xs text-navy-900">Pipette</div>
+                <div class="text-[10px] text-slate-500 font-mono">Volumetric Transfer</div>
+              </div>
+
+              <!-- Tool 4: Stopwatch -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 text-center hover:border-labblue-600 transition-colors">
+                <svg class="w-10 h-10 mx-auto text-navy-900 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M10 2h4M12 2v3"/></svg>
+                <div class="font-semibold text-xs text-navy-900">Stopwatch</div>
+                <div class="text-[10px] text-slate-500 font-mono">Precision ±0.1s</div>
+              </div>
+
+              <!-- Tool 5: Mortar and Pestle -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 text-center hover:border-labblue-600 transition-colors">
+                <svg class="w-10 h-10 mx-auto text-slate-700 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11c0 5 3.5 8 8 8s8-3 8-8H4z"/><path d="M14 4l-4 8"/></svg>
+                <div class="font-semibold text-xs text-navy-900">Mortar & Pestle</div>
+                <div class="text-[10px] text-slate-500 font-mono">Surface Grinding</div>
+              </div>
+
+              <!-- Tool 6: Thermometer -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 text-center hover:border-labblue-600 transition-colors">
+                <svg class="w-10 h-10 mx-auto text-red-500 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/><circle cx="11.5" cy="17.5" r="2" fill="#EF4444"/></svg>
+                <div class="font-semibold text-xs text-navy-900">Thermometer</div>
+                <div class="text-[10px] text-slate-500 font-mono">Thermal Monitor (°C)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reagents & Materials -->
+          <div class="bg-offwhite p-4 rounded-xl border border-softgray">
+            <h3 class="font-mono text-xs font-bold text-navy-900 uppercase tracking-wider mb-3 flex items-center gap-2 border-b pb-2">
+              <svg class="w-4 h-4 text-cyanacc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              CHEMICAL REAGENTS & SAMPLES
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <!-- Reagent 1 -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 hover:border-cyanacc-500 transition-colors">
+                <div class="font-mono font-bold text-xs text-labblue-700">CaCO₃</div>
+                <div class="font-semibold text-xs text-navy-900">Egg Shell</div>
+                <div class="text-[10px] text-slate-500 font-mono">Calcium Carbonate</div>
+              </div>
+
+              <!-- Reagent 2 -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 hover:border-cyanacc-500 transition-colors">
+                <div class="font-mono font-bold text-xs text-labblue-700">HCl</div>
+                <div class="font-semibold text-xs text-navy-900">Hydrochloric Acid</div>
+                <div class="text-[10px] text-slate-500 font-mono">1M & 3M Concentrations</div>
+              </div>
+
+              <!-- Reagent 3 -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 hover:border-cyanacc-500 transition-colors">
+                <div class="font-mono font-bold text-xs text-labblue-700">H₂O₂</div>
+                <div class="font-semibold text-xs text-navy-900">Hydrogen Peroxide</div>
+                <div class="text-[10px] text-slate-500 font-mono">Substrate Reagent</div>
+              </div>
+
+              <!-- Reagent 4 -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 hover:border-cyanacc-500 transition-colors">
+                <div class="font-mono font-bold text-xs text-amberacc-600">FeCl₃</div>
+                <div class="font-semibold text-xs text-navy-900">Iron(III) Chloride</div>
+                <div class="text-[10px] text-slate-500 font-mono">Active Catalyst</div>
+              </div>
+
+              <!-- Reagent 5 -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 hover:border-cyanacc-500 transition-colors">
+                <div class="font-mono font-bold text-xs text-labblue-700">Na₂S₂O₃</div>
+                <div class="font-semibold text-xs text-navy-900">Sodium Thiosulfate</div>
+                <div class="text-[10px] text-slate-500 font-mono">10 mL Standard Vol</div>
+              </div>
+
+              <!-- Reagent 6 -->
+              <div class="bg-white p-3 rounded-lg border border-slate-200 hover:border-cyanacc-500 transition-colors">
+                <div class="font-mono font-bold text-xs text-slate-600">NaCl</div>
+                <div class="font-semibold text-xs text-navy-900">Sodium Chloride</div>
+                <div class="text-[10px] text-slate-500 font-mono">Control Reagent</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 03 — FOUR EXPERIMENTAL FACTORS (Methodology Panels) -->
+      <section class="bg-white rounded-xl p-6 border border-softgray shadow-sm">
+        <div class="flex items-center justify-between mb-6 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-xs font-bold bg-navy-900 text-cyanacc-400 px-3 py-1 rounded-md">SECTION 03</span>
+            <h2 class="font-heading text-xl font-bold tracking-tight text-navy-900">FOUR EXPERIMENTAL FACTORS — PROCEDURAL PANELS</h2>
+          </div>
+          <span class="text-xs font-mono text-labblue-700 font-semibold">METHODOLOGY & MICRO-VISUALS</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Panel A: CONCENTRATION -->
+          <div class="bg-offwhite rounded-xl p-4 border-2 border-softgray flex flex-col justify-between hover:border-labblue-600 transition-all">
+            <div>
+              <div class="flex items-center justify-between border-b pb-2 mb-3">
+                <span class="font-mono text-xs font-bold text-labblue-700">FACTOR A</span>
+                <span class="text-[10px] font-mono bg-labblue-50 text-labblue-700 px-2 py-0.5 rounded font-bold">CONCENTRATION</span>
+              </div>
+              <h3 class="font-heading font-bold text-base text-navy-900 mb-2">Na₂S₂O₃ + HCl Reaction</h3>
+              <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                Two beakers containing 10 mL sodium thiosulfate (Na₂S₂O₃) solution are reacted with 1M vs 3M HCl. Precipitating sulfur (S) gradually obscures an 'X' mark underneath.
+              </p>
+            </div>
+
+            <!-- Visual Diagram for Disappearing X -->
+            <div class="bg-white p-3 rounded-lg border border-slate-200 text-center">
+              <div class="text-[10px] font-mono text-slate-400 mb-2 uppercase">Disappearing 'X' Visualizer</div>
+              <div class="flex justify-around items-center">
+                <!-- 1M Beaker -->
+                <div class="space-y-1">
+                  <div class="w-14 h-16 border-2 border-slate-400 rounded-b-lg relative mx-auto bg-yellow-100/40 flex items-center justify-center">
+                    <span class="font-bold text-navy-900 opacity-60 text-lg">X</span>
+                    <span class="absolute bottom-1 text-[9px] font-mono bg-white/80 px-1 rounded">1M</span>
+                  </div>
+                  <div class="text-[10px] font-mono text-slate-600">Slower Clouding</div>
+                </div>
+
+                <span class="text-slate-300 font-bold">VS</span>
+
+                <!-- 3M Beaker -->
+                <div class="space-y-1">
+                  <div class="w-14 h-16 border-2 border-slate-400 rounded-b-lg relative mx-auto bg-amber-300/80 flex items-center justify-center">
+                    <span class="font-bold text-navy-900 opacity-10 text-lg">X</span>
+                    <span class="absolute bottom-1 text-[9px] font-mono bg-white/80 px-1 rounded">3M</span>
+                  </div>
+                  <div class="text-[10px] font-mono text-labblue-700 font-semibold">Rapid Clouding</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel B: TEMPERATURE -->
+          <div class="bg-offwhite rounded-xl p-4 border-2 border-softgray flex flex-col justify-between hover:border-labblue-600 transition-all">
+            <div>
+              <div class="flex items-center justify-between border-b pb-2 mb-3">
+                <span class="font-mono text-xs font-bold text-labblue-700">FACTOR B</span>
+                <span class="text-[10px] font-mono bg-red-50 text-red-600 px-2 py-0.5 rounded font-bold">TEMPERATURE</span>
+              </div>
+              <h3 class="font-heading font-bold text-base text-navy-900 mb-2">Thermal Energy & Motion</h3>
+              <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                Two 10 mL sodium thiosulfate solutions are maintained at 31°C and 41°C. 10 mL of 1M HCl is added to each, observing the effect of kinetic thermal velocity.
+              </p>
+            </div>
+
+            <!-- Visual Diagram for Temperature Vectors -->
+            <div class="bg-white p-3 rounded-lg border border-slate-200 text-center">
+              <div class="text-[10px] font-mono text-slate-400 mb-2 uppercase">Thermal Kinetic Motion</div>
+              <div class="flex justify-around items-center">
+                <!-- 31°C Vessel -->
+                <div class="space-y-1">
+                  <div class="w-14 h-16 border-2 border-slate-400 rounded-b-lg relative mx-auto bg-blue-50 flex items-center justify-center overflow-hidden">
+                    <svg viewBox="0 0 50 50" class="w-full h-full">
+                      <circle cx="15" cy="25" r="4" fill="#2563EB"/>
+                      <line x1="15" y1="25" x2="22" y2="25" stroke="#2563EB" stroke-width="1.5"/>
+                      <circle cx="35" cy="35" r="4" fill="#2563EB"/>
+                      <line x1="35" y1="35" x2="35" y2="28" stroke="#2563EB" stroke-width="1.5"/>
+                    </svg>
+                    <span class="absolute bottom-1 text-[9px] font-mono bg-white/90 px-1 rounded">31°C</span>
+                  </div>
+                  <div class="text-[10px] font-mono text-slate-600">Moderate Ek</div>
+                </div>
+
+                <span class="text-slate-300 font-bold">VS</span>
+
+                <!-- 41°C Vessel -->
+                <div class="space-y-1">
+                  <div class="w-14 h-16 border-2 border-slate-400 rounded-b-lg relative mx-auto bg-red-50 flex items-center justify-center overflow-hidden">
+                    <svg viewBox="0 0 50 50" class="w-full h-full">
+                      <circle cx="15" cy="20" r="4" fill="#EF4444"/>
+                      <line x1="15" y1="20" x2="32" y2="12" stroke="#EF4444" stroke-width="2"/>
+                      <circle cx="35" cy="35" r="4" fill="#EF4444"/>
+                      <line x1="35" y1="35" x2="18" y2="42" stroke="#EF4444" stroke-width="2"/>
+                    </svg>
+                    <span class="absolute bottom-1 text-[9px] font-mono fill-red-600 font-bold bg-white/90 px-1 rounded">41°C</span>
+                  </div>
+                  <div class="text-[10px] font-mono text-red-600 font-semibold">High Velocity</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel C: SURFACE AREA -->
+          <div class="bg-offwhite rounded-xl p-4 border-2 border-softgray flex flex-col justify-between hover:border-labblue-600 transition-all">
+            <div>
+              <div class="flex items-center justify-between border-b pb-2 mb-3">
+                <span class="font-mono text-xs font-bold text-labblue-700">FACTOR C</span>
+                <span class="text-[10px] font-mono bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-bold">SURFACE AREA</span>
+              </div>
+              <h3 class="font-heading font-bold text-base text-navy-900 mb-2">Eggshell Subdivision</h3>
+              <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                Equal masses of calcium carbonate (CaCO₃) eggshell are reacted with HCl: large uncrushed fragments vs finely pulverized mortar-and-pestle powder.
+              </p>
+            </div>
+
+            <!-- Visual Diagram for Surface Area -->
+            <div class="bg-white p-3 rounded-lg border border-slate-200 text-center">
+              <div class="text-[10px] font-mono text-slate-400 mb-2 uppercase">Particle Contact Interfaces</div>
+              <div class="flex justify-around items-center">
+                <!-- Uncrushed -->
+                <div class="space-y-1">
+                  <div class="w-14 h-16 border-2 border-slate-400 rounded-b-lg relative mx-auto bg-slate-50 flex items-center justify-center">
+                    <div class="w-8 h-8 bg-amber-200 border border-amber-400 rounded-md flex items-center justify-center text-[9px] font-bold">1 PIECE</div>
+                  </div>
+                  <div class="text-[10px] font-mono text-slate-600">Low Area / Vol</div>
+                </div>
+
+                <span class="text-slate-300 font-bold">VS</span>
+
+                <!-- Crushed -->
+                <div class="space-y-1">
+                  <div class="w-14 h-16 border-2 border-slate-400 rounded-b-lg relative mx-auto bg-emerald-50 flex items-center justify-center flex-wrap p-2 gap-1">
+                    <div class="w-2 h-2 bg-amber-300 rounded-full"></div>
+                    <div class="w-2 h-2 bg-amber-300 rounded-full"></div>
+                    <div class="w-2 h-2 bg-amber-300 rounded-full"></div>
+                    <div class="w-2 h-2 bg-amber-300 rounded-full"></div>
+                    <div class="w-2 h-2 bg-amber-300 rounded-full"></div>
+                    <div class="w-2 h-2 bg-amber-300 rounded-full"></div>
+                  </div>
+                  <div class="text-[10px] font-mono text-emerald-700 font-semibold">High Surface Contact</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel D: CATALYST -->
+          <div class="bg-offwhite rounded-xl p-4 border-2 border-softgray flex flex-col justify-between hover:border-labblue-600 transition-all">
+            <div>
+              <div class="flex items-center justify-between border-b pb-2 mb-3">
+                <span class="font-mono text-xs font-bold text-labblue-700">FACTOR D</span>
+                <span class="text-[10px] font-mono bg-amberacc-50 text-amberacc-600 px-2 py-0.5 rounded font-bold">CATALYST</span>
+              </div>
+              <h3 class="font-heading font-bold text-base text-navy-900 mb-2">H₂O₂ Decomposition</h3>
+              <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                Two 10 mL hydrogen peroxide (H₂O₂) beakers treated with: 2 drops NaCl solution (control) vs 2 drops FeCl₃ solution (transition metal catalyst).
+              </p>
+            </div>
+
+            <!-- Visual Diagram for Bubbling / Color Change -->
+            <div class="bg-white p-3 rounded-lg border border-slate-200 text-center">
+              <div class="text-[10px] font-mono text-slate-400 mb-2 uppercase">Gas Bubbles & Color Shift</div>
+              <div class="flex justify-around items-center">
+                <!-- NaCl -->
+                <div class="space-y-1">
+                  <div class="w-14 h-16 border-2 border-slate-400 rounded-b-lg relative mx-auto bg-slate-50 flex items-center justify-center">
+                    <div class="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce"></div>
+                    <span class="absolute bottom-1 text-[9px] font-mono bg-white/90 px-1 rounded">NaCl</span>
+                  </div>
+                  <div class="text-[10px] font-mono text-slate-600">Minor Bubbles</div>
+                </div>
+
+                <span class="text-slate-300 font-bold">VS</span>
+
+                <!-- FeCl3 -->
+                <div class="space-y-1">
+                  <div class="w-14 h-16 border-2 border-slate-400 rounded-b-lg relative mx-auto bg-amber-100 flex flex-col items-center justify-end p-1">
+                    <div class="flex space-x-1 mb-2">
+                      <div class="w-2 h-2 bg-amber-500 rounded-full animate-ping"></div>
+                      <div class="w-2 h-2 bg-amber-600 rounded-full animate-ping"></div>
+                    </div>
+                    <span class="text-[9px] font-mono bg-amber-600 text-white font-bold px-1 rounded">FeCl₃</span>
+                  </div>
+                  <div class="text-[10px] font-mono text-amberacc-600 font-semibold">Vigorous Gas / Color</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 04 — EXPERIMENTAL RESULTS (Visual Data Analytics) -->
+      <section class="bg-white rounded-xl p-6 border border-softgray shadow-sm">
+        <div class="flex items-center justify-between mb-6 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-xs font-bold bg-navy-900 text-cyanacc-400 px-3 py-1 rounded-md">SECTION 04</span>
+            <h2 class="font-heading text-xl font-bold tracking-tight text-navy-900">EXPERIMENTAL RESULTS & QUANTITATIVE VISUALIZATION</h2>
+          </div>
+          <div class="bg-amberacc-50 border border-amberacc-500 text-navy-900 text-xs px-3 py-1 rounded font-mono font-semibold">
+            ⚡ SHORTER TIME = FASTER REACTION RATE
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Quantitative Visual Bar Charts -->
+          <div class="lg:col-span-8 space-y-6">
+            
+            <!-- Factor 1 Chart: Concentration -->
+            <div class="bg-offwhite p-4 rounded-xl border border-softgray">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-mono text-xs font-bold text-navy-900">1. CONCENTRATION EFFECT (Na₂S₂O₃ + HCl)</span>
+                <span class="font-mono text-xs text-labblue-700 font-bold">1M vs 3M HCl</span>
+              </div>
+              <div class="space-y-3">
+                <!-- 1M HCl -->
+                <div>
+                  <div class="flex justify-between text-xs font-mono mb-1">
+                    <span class="text-slate-600">HCl 1M Concentration</span>
+                    <span class="font-bold text-navy-900">64 seconds</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-6 rounded-md overflow-hidden relative">
+                    <div class="bg-slate-400 h-full rounded-md transition-all duration-1000 flex items-center justify-end pr-2 text-white text-xs font-mono font-bold" style="width: 26.6%;">
+                      64s
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 3M HCl -->
+                <div>
+                  <div class="flex justify-between text-xs font-mono mb-1">
+                    <span class="text-labblue-700 font-bold">HCl 3M Concentration</span>
+                    <span class="font-bold text-labblue-700">57 seconds (Faster by 7s)</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-6 rounded-md overflow-hidden relative">
+                    <div class="bg-labblue-600 h-full rounded-md transition-all duration-1000 flex items-center justify-end pr-2 text-white text-xs font-mono font-bold" style="width: 23.75%;">
+                      57s
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Factor 2 Chart: Temperature -->
+            <div class="bg-offwhite p-4 rounded-xl border border-softgray">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-mono text-xs font-bold text-navy-900">2. TEMPERATURE EFFECT (31°C vs 41°C)</span>
+                <span class="font-mono text-xs text-red-600 font-bold">+10°C Thermal Elevation</span>
+              </div>
+              <div class="space-y-3">
+                <!-- 31°C -->
+                <div>
+                  <div class="flex justify-between text-xs font-mono mb-1">
+                    <span class="text-slate-600">31°C Temperature</span>
+                    <span class="font-bold text-navy-900">75 seconds</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-6 rounded-md overflow-hidden relative">
+                    <div class="bg-slate-400 h-full rounded-md transition-all duration-1000 flex items-center justify-end pr-2 text-white text-xs font-mono font-bold" style="width: 31.25%;">
+                      75s
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 41°C -->
+                <div>
+                  <div class="flex justify-between text-xs font-mono mb-1">
+                    <span class="text-red-600 font-bold">41°C Temperature</span>
+                    <span class="font-bold text-red-600">50 seconds (Faster by 25s)</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-6 rounded-md overflow-hidden relative">
+                    <div class="bg-red-500 h-full rounded-md transition-all duration-1000 flex items-center justify-end pr-2 text-white text-xs font-mono font-bold" style="width: 20.83%;">
+                      50s
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Factor 3 Chart: Surface Area -->
+            <div class="bg-offwhite p-4 rounded-xl border border-softgray">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-mono text-xs font-bold text-navy-900">3. SURFACE AREA EFFECT (Eggshell + HCl)</span>
+                <span class="font-mono text-xs text-emerald-700 font-bold">Crushed vs Uncrushed</span>
+              </div>
+              <div class="space-y-3">
+                <!-- Uncrushed -->
+                <div>
+                  <div class="flex justify-between text-xs font-mono mb-1">
+                    <span class="text-slate-600">Uncrushed Eggshell (Whole Pieces)</span>
+                    <span class="font-bold text-navy-900">240 seconds</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-6 rounded-md overflow-hidden relative">
+                    <div class="bg-slate-400 h-full rounded-md transition-all duration-1000 flex items-center justify-end pr-2 text-white text-xs font-mono font-bold" style="width: 100%;">
+                      240s
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Crushed -->
+                <div>
+                  <div class="flex justify-between text-xs font-mono mb-1">
+                    <span class="text-emerald-700 font-bold">Crushed Eggshell (Powdered)</span>
+                    <span class="font-bold text-emerald-700">65 seconds (3.69x Faster!)</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-6 rounded-md overflow-hidden relative">
+                    <div class="bg-emerald-600 h-full rounded-md transition-all duration-1000 flex items-center justify-end pr-2 text-white text-xs font-mono font-bold" style="width: 27.08%;">
+                      65s
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Qualitative Data Card: Catalyst Observations -->
+          <div class="lg:col-span-4 bg-navy-900 text-white rounded-xl p-5 border border-slate-700 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between border-b border-slate-700 pb-3 mb-4">
+                <span class="font-mono text-xs font-bold text-amberacc-400">4. CATALYST QUALITATIVE DATA</span>
+                <span class="text-[10px] font-mono bg-navy-800 text-slate-300 px-2 py-0.5 rounded">OBSERVATIONAL</span>
+              </div>
+
+              <!-- NaCl Observation -->
+              <div class="bg-navy-800 p-4 rounded-lg border border-slate-700 mb-4 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono text-xs font-bold text-slate-300">NaCl Solution</span>
+                  <span class="text-[10px] bg-slate-700 text-slate-300 px-2 py-0.5 rounded font-mono">Control</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  "Bubble formation observed, without a significant increase in reaction rate."
+                </p>
+                <div class="text-[10px] font-mono text-slate-400 flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-slate-500"></span> Na⁺ ions lack catalytic pathway.
+                </div>
+              </div>
+
+              <!-- FeCl3 Observation -->
+              <div class="bg-navy-800 p-4 rounded-lg border border-amberacc-500/40 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono text-xs font-bold text-amberacc-400">FeCl₃ Solution</span>
+                  <span class="text-[10px] bg-amberacc-600 text-white font-bold px-2 py-0.5 rounded font-mono">Active Catalyst</span>
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed font-medium">
+                  "Vigorous bubble formation, steam/vapor evolution, color change (amber/yellow), and significant increase in reaction rate."
+                </p>
+                <div class="text-[10px] font-mono text-amberacc-400 flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-amberacc-500 animate-pulse"></span> Fe³⁺ lowers Activation Energy ($E_a$).
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-navy-800/80 rounded border border-slate-700 text-[11px] font-mono text-slate-300">
+              <span class="text-cyanacc-400 font-bold">Data Summary:</span> Quantitative trials prove higher concentration, higher temperature, and fine surface area dramatically lower reaction duration ($t$).
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 05 — SCIENTIFIC DISCUSSION -->
+      <section class="bg-white rounded-xl p-6 border border-softgray shadow-sm">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="font-mono text-xs font-bold bg-navy-900 text-cyanacc-400 px-3 py-1 rounded-md">SECTION 05</span>
+          <h2 class="font-heading text-xl font-bold tracking-tight text-navy-900">SCIENTIFIC DISCUSSION & MECHANISTIC RATIONALE</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Discussion 1: Concentration -->
+          <div class="bg-offwhite p-4 rounded-xl border border-softgray flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-mono font-bold text-labblue-700 mb-1">CONCENTRATION MECHANISM</div>
+              <h3 class="font-heading font-bold text-sm text-navy-900 mb-2">Particle Density Factor</h3>
+              <p class="text-xs text-slate-700 leading-relaxed">
+                Higher reactant concentration increases the number of reactive particles per unit volume. This higher density increases the statistical frequency of particle collisions per second.
+              </p>
+            </div>
+            <div class="mt-3 bg-white p-2 rounded border border-slate-200 text-[10px] font-mono text-navy-900">
+              <span class="font-bold text-labblue-600">Direct Result:</span> 3M HCl reaction completed 7s faster than 1M HCl.
+            </div>
+          </div>
+
+          <!-- Discussion 2: Temperature -->
+          <div class="bg-offwhite p-4 rounded-xl border border-softgray flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-mono font-bold text-red-600 mb-1">TEMPERATURE MECHANISM</div>
+              <h3 class="font-heading font-bold text-sm text-navy-900 mb-2">Maxwell-Boltzmann Shift</h3>
+              <p class="text-xs text-slate-700 leading-relaxed">
+                Elevating thermal energy increases average kinetic energy ($E_k = \frac{3}{2}kT$). A larger fraction of colliding particles possess kinetic energy exceeding the activation energy ($E \ge E_a$).
+              </p>
+            </div>
+            <div class="mt-3 bg-white p-2 rounded border border-slate-200 text-[10px] font-mono text-navy-900">
+              <span class="font-bold text-red-600">Direct Result:</span> 10°C rise reduced duration from 75s to 50s.
+            </div>
+          </div>
+
+          <!-- Discussion 3: Surface Area -->
+          <div class="bg-offwhite p-4 rounded-xl border border-softgray flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-mono font-bold text-emerald-700 mb-1">SURFACE AREA MECHANISM</div>
+              <h3 class="font-heading font-bold text-sm text-navy-900 mb-2">Exposed Reactive Sites</h3>
+              <p class="text-xs text-slate-700 leading-relaxed">
+                Crushing the solid eggshell ($CaCO_3$) increases total exposed surface area, allowing more H⁺ ions in solution to interact simultaneously with the solid matrix.
+              </p>
+            </div>
+            <div class="mt-3 bg-white p-2 rounded border border-slate-200 text-[10px] font-mono text-navy-900">
+              <span class="font-bold text-emerald-700">Direct Result:</span> Powdered sample reacted in 65s vs 240s uncrushed.
+            </div>
+          </div>
+
+          <!-- Discussion 4: Catalyst -->
+          <div class="bg-offwhite p-4 rounded-xl border border-softgray flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-mono font-bold text-amberacc-600 mb-1">CATALYST MECHANISM</div>
+              <h3 class="font-heading font-bold text-sm text-navy-900 mb-2">Transition State Pathway</h3>
+              <p class="text-xs text-slate-700 leading-relaxed">
+                Fe³⁺ provides an alternative multi-step reaction pathway with lower activation energy ($E_a$). Na⁺ from NaCl displays no such catalytic activity in peroxide decomposition.
+              </p>
+            </div>
+            <div class="mt-3 bg-white p-2 rounded border border-slate-200 text-[10px] font-mono text-navy-900">
+              <span class="font-bold text-amberacc-600">Direct Result:</span> Rapid gas evolution, steam formation, and amber intermediate.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 06 — FINAL CONCLUSION -->
+      <section class="bg-navy-900 text-white rounded-xl p-6 md:p-8 border border-slate-700 space-y-6">
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-xs font-bold bg-labblue-600 text-white px-3 py-1 rounded-md">SECTION 06</span>
+          <h2 class="font-heading text-xl font-bold tracking-tight text-white">FINAL CONCLUSION & CORE FINDINGS</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-navy-800 p-4 rounded-lg border border-slate-700">
+            <div class="font-mono text-xs font-bold text-cyanacc-400 mb-1">01. CONCENTRATION</div>
+            <p class="text-xs text-slate-300">Higher concentration increases collision frequency, accelerating reaction velocity.</p>
+          </div>
+          <div class="bg-navy-800 p-4 rounded-lg border border-slate-700">
+            <div class="font-mono text-xs font-bold text-cyanacc-400 mb-1">02. TEMPERATURE</div>
+            <p class="text-xs text-slate-300">Higher temperature increases kinetic energy and the fraction of particles with $E \ge E_a$.</p>
+          </div>
+          <div class="bg-navy-800 p-4 rounded-lg border border-slate-700">
+            <div class="font-mono text-xs font-bold text-cyanacc-400 mb-1">03. SURFACE AREA</div>
+            <p class="text-xs text-slate-300">Greater exposed surface area increases accessible active collision sites.</p>
+          </div>
+          <div class="bg-navy-800 p-4 rounded-lg border border-slate-700">
+            <div class="font-mono text-xs font-bold text-amberacc-400 mb-1">04. CATALYST</div>
+            <p class="text-xs text-slate-300">A suitable catalyst lowers activation energy ($E_a$) via an alternative reaction route.</p>
+          </div>
+        </div>
+
+        <!-- Prominent Scientific Takeaway Banner -->
+        <div class="bg-gradient-to-r from-labblue-700 via-navy-800 to-labblue-700 p-6 rounded-xl border-2 border-cyanacc-400 text-center shadow-lg">
+          <div class="text-xs font-mono text-cyanacc-400 uppercase tracking-widest font-bold mb-2">CENTRAL SCIENTIFIC TAKEAWAY</div>
+          <h3 class="font-heading text-lg md:text-2xl font-extrabold text-white tracking-wide leading-relaxed">
+            "REACTION RATE IS GOVERNED BY THE FREQUENCY AND EFFECTIVENESS OF PARTICLE COLLISIONS."
+          </h3>
+        </div>
+      </section>
+
+      <!-- POSTER FOOTER / METADATA -->
+      <footer class="border-t border-slate-300 pt-4 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 font-mono gap-2">
+        <div>CHEMISTRY LABORATORY REPORT — GROUP CONCENTRATION I</div>
+        <div>PUBLICATION QUALITY SCIENTIFIC INFOGRAPHIC</div>
+        <div>SWISS EDITORIAL SYSTEM</div>
+      </footer>
+
+    </div>
+
+    <!-- INTERACTIVE PARTICLE SIMULATOR VIEW (Sandbox Mode) -->
+    <div id="sandbox-board" class="hidden bg-navy-900 text-white rounded-xl shadow-2xl border border-slate-700 w-full max-w-[1200px] p-6 space-y-6">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-4">
+        <div>
+          <h2 class="font-heading text-2xl font-bold text-white flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-cyanacc-400 animate-pulse"></span>
+            COLLISION THEORY DYNAMIC PARTICLE SIMULATOR
+          </h2>
+          <p class="text-xs text-slate-400 font-mono">Interactive physics sandbox modeling microscopic collisions & activation energy</p>
+        </div>
+        <button onclick="switchView('poster')" class="bg-slate-700 hover:bg-slate-600 text-xs font-mono px-3 py-1.5 rounded text-white">
+          Back to Poster
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Canvas Box -->
+        <div class="lg:col-span-8 bg-navy-800 rounded-xl p-4 border border-slate-700 relative">
+          <canvas id="particleCanvas" width="700" height="420" class="w-full h-auto bg-navy-900 rounded border border-slate-700"></canvas>
+          <div class="absolute top-6 left-6 bg-navy-900/90 backdrop-blur px-3 py-1.5 rounded border border-slate-700 font-mono text-xs space-y-1">
+            <div class="text-cyanacc-400 font-bold">LIVE TELEMETRY</div>
+            <div class="text-slate-300">Collisions/sec: <span id="telemetry-collisions" class="text-white font-bold">0</span></div>
+            <div class="text-slate-300">Effective Collisions: <span id="telemetry-effective" class="text-amberacc-400 font-bold">0</span></div>
+          </div>
+        </div>
+
+        <!-- Controls Box -->
+        <div class="lg:col-span-4 bg-navy-800 rounded-xl p-5 border border-slate-700 flex flex-col justify-between space-y-4">
+          <div class="space-y-4">
+            <h3 class="font-mono text-xs font-bold text-cyanacc-400 uppercase border-b border-slate-700 pb-2">SIMULATION PARAMETERS</h3>
+            
+            <!-- Temperature Slider -->
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1">
+                <span class="text-slate-300">Temperature (Kinetic Speed)</span>
+                <span id="slider-temp-val" class="text-red-400 font-bold">31 °C</span>
+              </div>
+              <input type="range" id="slider-temp" min="10" max="90" value="31" class="w-full accent-red-500 cursor-pointer" oninput="updateSimParameters()">
+            </div>
+
+            <!-- Concentration Slider -->
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1">
+                <span class="text-slate-300">Concentration (Particle Density)</span>
+                <span id="slider-conc-val" class="text-labblue-400 font-bold">20 Particles</span>
+              </div>
+              <input type="range" id="slider-conc" min="10" max="60" value="20" class="w-full accent-labblue-600 cursor-pointer" oninput="updateSimParameters()">
+            </div>
+
+            <!-- Catalyst Toggle -->
+            <div class="bg-navy-900 p-3 rounded border border-slate-700 flex items-center justify-between">
+              <div>
+                <div class="text-xs font-bold text-white">Add FeCl₃ Catalyst</div>
+                <div class="text-[10px] text-slate-400 font-mono">Lowers Ea Threshold</div>
+              </div>
+              <button id="catalyst-toggle-btn" onclick="toggleSimCatalyst()" class="px-3 py-1 bg-slate-700 text-xs font-mono rounded font-bold text-slate-300">
+                OFF
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-navy-900 p-3 rounded text-xs text-slate-300 font-mono border border-slate-700">
+            <span class="text-amberacc-400 font-bold">Observe:</span> Cyan particles rebound when low kinetic energy is present. When temperature is increased or catalyst lowered $E_a$, glowing amber flashes represent effective chemical reactions!
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- JAVASCRIPT APP INTERACTION & SIMULATION LOGIC -->
+  <script>
+    // State management
+    let zoomLevel = 1.0;
+    let currentView = 'poster';
+    let catalystActive = false;
+
+    // Zoom Functions
+    function adjustZoom(delta) {
+      zoomLevel = Math.max(0.6, Math.min(1.4, zoomLevel + delta));
+      applyZoom();
+    }
+
+    function resetZoom() {
+      zoomLevel = 1.0;
+      applyZoom();
+    }
+
+    function applyZoom() {
+      const poster = document.getElementById('poster-board');
+      poster.style.transform = `scale(${zoomLevel})`;
+      document.getElementById('zoom-text').innerText = `${Math.round(zoomLevel * 100)}%`;
+    }
+
+    // View Switching
+    function switchView(mode) {
+      currentView = mode;
+      const posterBtn = document.getElementById('view-poster-btn');
+      const sectionBtn = document.getElementById('view-sections-btn');
+      const sandboxBtn = document.getElementById('view-sandbox-btn');
+      const posterBoard = document.getElementById('poster-board');
+      const sandboxBoard = document.getElementById('sandbox-board');
+
+      posterBtn.className = "px-3 py-1.5 rounded-md transition-all text-slate-300 hover:text-white";
+      sectionBtn.className = "px-3 py-1.5 rounded-md transition-all text-slate-300 hover:text-white";
+      sandboxBtn.className = "px-3 py-1.5 rounded-md transition-all text-slate-300 hover:text-white flex items-center gap-1";
+
+      if (mode === 'poster') {
+        posterBtn.className = "px-3 py-1.5 rounded-md transition-all bg-labblue-600 text-white font-semibold";
+        posterBoard.classList.remove('hidden');
+        sandboxBoard.classList.add('hidden');
+        document.getElementById('zoom-controls').style.display = 'flex';
+      } else if (mode === 'sections') {
+        sectionBtn.className = "px-3 py-1.5 rounded-md transition-all bg-labblue-600 text-white font-semibold";
+        posterBoard.classList.remove('hidden');
+        sandboxBoard.classList.add('hidden');
+        document.getElementById('zoom-controls').style.display = 'flex';
+        resetZoom();
+      } else if (mode === 'sandbox') {
+        sandboxBtn.className = "px-3 py-1.5 rounded-md transition-all bg-labblue-600 text-white font-semibold flex items-center gap-1";
+        posterBoard.classList.add('hidden');
+        sandboxBoard.classList.remove('hidden');
+        document.getElementById('zoom-controls').style.display = 'none';
+        initParticleSimulation();
+      }
+    }
+
+    // Particle Canvas Simulation
+    let canvas, ctx;
+    let particles = [];
+    let animationFrameId;
+    let collisionCount = 0;
+    let effectiveCollisionCount = 0;
+    let lastTime = performance.now();
+
+    class Particle {
+      constructor(w, h, temp) {
+        this.radius = 6;
+        this.x = Math.random() * (w - 2 * this.radius) + this.radius;
+        this.y = Math.random() * (h - 2 * this.radius) + this.radius;
+        const speed = (temp / 15) + Math.random() * 1.5;
+        const angle = Math.random() * Math.PI * 2;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.color = '#38BDF8';
+        this.flash = 0;
+      }
+
+      update(w, h, temp) {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Bounce off canvas walls
+        if (this.x - this.radius <= 0 || this.x + this.radius >= w) this.vx *= -1;
+        if (this.y - this.radius <= 0 || this.y + this.radius >= h) this.vy *= -1;
+
+        if (this.flash > 0) this.flash--;
+      }
+
+      draw(ctx) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        if (this.flash > 0) {
+          ctx.fillStyle = '#F59E0B';
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = '#F59E0B';
+        } else {
+          ctx.fillStyle = this.color;
+          ctx.shadowBlur = 0;
+        }
+        ctx.fill();
+        ctx.closePath();
+      }
+    }
+
+    function initParticleSimulation() {
+      canvas = document.getElementById('particleCanvas');
+      if (!canvas) return;
+      ctx = canvas.getContext('2d');
+      updateSimParameters();
+      if (!animationFrameId) {
+        loopSimulation();
+      }
+    }
+
+    function updateSimParameters() {
+      const temp = parseInt(document.getElementById('slider-temp').value);
+      const conc = parseInt(document.getElementById('slider-conc').value);
+
+      document.getElementById('slider-temp-val').innerText = `${temp} °C`;
+      document.getElementById('slider-conc-val').innerText = `${conc} Particles`;
+
+      if (!canvas) return;
+
+      // Adjust particle count
+      while (particles.length < conc) {
+        particles.push(new Particle(canvas.width, canvas.height, temp));
+      }
+      while (particles.length > conc) {
+        particles.pop();
+      }
+
+      // Adjust particle speeds
+      particles.forEach(p => {
+        const currentSpeed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        const targetSpeed = (temp / 15) + 1;
+        if (currentSpeed > 0) {
+          p.vx = (p.vx / currentSpeed) * targetSpeed;
+          p.vy = (p.vy / currentSpeed) * targetSpeed;
+        }
+      });
+    }
+
+    function toggleSimCatalyst() {
+      catalystActive = !catalystActive;
+      const btn = document.getElementById('catalyst-toggle-btn');
+      if (catalystActive) {
+        btn.innerText = "ON (FeCl₃ Active)";
+        btn.className = "px-3 py-1 bg-amberacc-600 text-xs font-mono rounded font-bold text-white shadow";
+      } else {
+        btn.innerText = "OFF";
+        btn.className = "px-3 py-1 bg-slate-700 text-xs font-mono rounded font-bold text-slate-300";
+      }
+    }
+
+    function loopSimulation() {
+      animationFrameId = requestAnimationFrame(loopSimulation);
+      if (currentView !== 'sandbox' || !ctx) return;
+
+      const w = canvas.width;
+      const h = canvas.height;
+      const temp = parseInt(document.getElementById('slider-temp').value);
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Update & Draw particles
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update(w, h, temp);
+        
+        // Collision Detection with other particles
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[j].x - particles[i].x;
+          const dy = particles[j].y - particles[i].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < particles[i].radius + particles[j].radius) {
+            // Elastic collision response
+            const tempVx = particles[i].vx;
+            const tempVy = particles[i].vy;
+            particles[i].vx = particles[j].vx;
+            particles[i].vy = particles[j].vy;
+            particles[j].vx = tempVx;
+            particles[j].vy = tempVy;
+
+            collisionCount++;
+
+            // Check if collision energy exceeds threshold
+            const relSpeed = Math.sqrt(Math.pow(particles[i].vx - particles[j].vx, 2) + Math.pow(particles[i].vy - particles[j].vy, 2));
+            const energyThreshold = catalystActive ? 2.5 : 4.8;
+
+            if (relSpeed > energyThreshold) {
+              effectiveCollisionCount++;
+              particles[i].flash = 8;
+              particles[j].flash = 8;
+            }
+          }
+        }
+
+        particles[i].draw(ctx);
+      }
+
+      // Telemetry update once per 20 frames
+      const now = performance.now();
+      if (now - lastTime > 500) {
+        document.getElementById('telemetry-collisions').innerText = collisionCount;
+        document.getElementById('telemetry-effective').innerText = effectiveCollisionCount;
+        lastTime = now;
+      }
+    }
+
+    // Initialize on window load
+    window.onload = function() {
+      resetZoom();
+    }
+  </script>
+</body>
+</html>
